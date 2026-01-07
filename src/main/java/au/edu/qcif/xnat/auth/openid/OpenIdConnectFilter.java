@@ -167,7 +167,11 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
 
         final String userInfoUri = _plugin.getProperty(providerId, "userInfoUri");
         if (!StringUtils.isEmpty(userInfoUri)) {
+            log.info("Getting User Info from {} using token {}", userInfoUri, accessToken.getValue());
             Map<String, String> userInfo = getUserInfo(accessToken.getValue(), userInfoUri);
+            for (String key : userInfo.keySet()) {
+                log.info("User Info: {} = {}", key, userInfo.get(key));
+            }
             authInfo.putAll(userInfo);
         }
         final OpenIdConnectUserDetails user = new OpenIdConnectUserDetails(providerId, authInfo, accessToken, _plugin);
