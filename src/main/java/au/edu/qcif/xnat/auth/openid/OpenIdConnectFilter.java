@@ -273,10 +273,11 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
                     Object objValue = entry.getValue();
                     if (objValue instanceof String) {
                         String value = (String) objValue;
+                        log.info("Applying regex filter {} = {} for provider {}", key, value, providerId);
                         String fieldName = key.substring(prefix.length());
                         String fieldValue = userInfo.get(fieldName);
                         if (fieldValue == null || !fieldValue.matches(value)) {
-                            log.debug("User info field {} with value {} did not pass regex filter {} for provider {}", fieldName, fieldValue, value, providerId);
+                            log.error("User info field {} with value {} did not pass regex filter {} for provider {}", fieldName, fieldValue, value, providerId);
                             return false;
                         }
                     }
