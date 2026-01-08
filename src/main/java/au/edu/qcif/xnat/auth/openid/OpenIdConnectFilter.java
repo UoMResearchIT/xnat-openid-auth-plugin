@@ -166,11 +166,11 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
 
         String providerId = (String) request.getSession().getAttribute("providerId");
 
-        log.debug("Getting idToken...");
+        log.info("Getting idToken...");
         final String idToken      = accessToken.getAdditionalInformation().get("id_token").toString();
         final Jwt    tokenDecoded = JwtHelper.decode(idToken);
 
-        log.debug("===== : {}", tokenDecoded.getClaims());
+        log.info("===== : {}", tokenDecoded.getClaims());
         final Map<String, String> authInfo = GenericUtils.convertToTypedMap(_objectMapper.readValue(tokenDecoded.getClaims(), Map.class), String.class, String.class);
 
         final String userInfoUri = _plugin.getProperty(providerId, "userInfoUri");
