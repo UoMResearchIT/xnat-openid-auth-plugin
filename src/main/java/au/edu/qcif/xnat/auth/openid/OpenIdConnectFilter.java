@@ -166,19 +166,19 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
 
         String providerId = (String) request.getSession().getAttribute("providerId");
 
-        log.info("Getting idToken...");
+        log.debug("Getting idToken...");
         final String idToken      = accessToken.getAdditionalInformation().get("id_token").toString();
         final Jwt    tokenDecoded = JwtHelper.decode(idToken);
 
-        log.info("===== : {}", tokenDecoded.getClaims());
+        log.debug("===== : {}", tokenDecoded.getClaims());
         final Map<String, String> authInfo = GenericUtils.convertToTypedMap(_objectMapper.readValue(tokenDecoded.getClaims(), Map.class), String.class, String.class);
 
         final String userInfoUri = _plugin.getProperty(providerId, "userInfoUri");
         if (!StringUtils.isEmpty(userInfoUri)) {
-            log.info("Getting User Info from {} using token {}", userInfoUri, accessToken.getValue());
+            log.debug("Getting User Info from {} using token {}", userInfoUri, accessToken.getValue());
             Map<String, String> userInfo = getUserInfo(accessToken.getValue(), userInfoUri);
             for (String key : userInfo.keySet()) {
-                log.info("User Info: {} = {}", key, userInfo.get(key));
+                log.debug("User Info: {} = {}", key, userInfo.get(key));
             }
             authInfo.putAll(userInfo);
         }
@@ -273,7 +273,7 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
                     Object objValue = entry.getValue();
                     if (objValue instanceof String) {
                         String value = (String) objValue;
-                        log.info("Applying regex filter {} = {} for provider {}", key, value, providerId);
+                        log.debug("Applying regex filter {} = {} for provider {}", key, value, providerId);
                         String fieldName = key.substring(prefix.length());
                         String fieldValue = userInfo.get(fieldName);
                         if (fieldValue == null || !fieldValue.matches(value)) {
