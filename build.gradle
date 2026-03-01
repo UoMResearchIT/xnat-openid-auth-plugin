@@ -121,7 +121,7 @@ try {
     commitDistance = gitDetails.commitDistance
     lastTag = gitDetails.lastTag
     isCleanTag = gitDetails.isCleanTag
-} catch (IllegalArgumentException e) {
+} catch (Exception e) {
     logger.info "Got an error trying to read VCS metadata from git. It's possible this project is not under VCS control. Using placeholder values for manifest entries."
     isDirty = true
     branchName = "Unknown"
