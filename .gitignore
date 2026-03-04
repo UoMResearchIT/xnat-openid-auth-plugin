@@ -11,3 +11,4 @@ dep*.txt
 .classpath
 .project
 _build
+*/**/.secret
