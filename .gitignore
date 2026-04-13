@@ -10,3 +10,5 @@ dep*.txt
 .settings
 .classpath
 .project
+_build
+*/**/.secret

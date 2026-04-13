@@ -23,11 +23,22 @@ Again there are 2 ways to accomplish this:
 
 ### 2. Build the code and generate the JAR
 
-To build the XNAT OpenID authentication provider plugin:
+To build the XNAT OpenID authentication provider plugin, There are two ways: use `make` or build natively 
+
+#### Use `make`
+
+```
+make build
+```
+
+It builds the `*.jar` under `_build`
+
+#### Build natively
+
 
 1. If you haven't already, clone [this repository](https://github.com/qcif/xnat-openid-auth-plugin.git) and cd to the newly cloned folder.
 
-1. Build the plugin:
+2. Build the plugin:
 
    `./gradlew clean xnatPluginJar`
 
@@ -39,11 +50,11 @@ This should build the plugin in the file **build/libs/xnat-openid-auth-plugin-al
 
 1. Build the plugin jar or download the latest development version [here](http://dev.redboxresearchdata.com.au/nexus/service/local/artifact/maven/redirect?r=snapshots&g=au.edu.qcif.xnat.openid&a=openid-auth-plugin&v=LATEST&e=jar)
 
-1. Optionally run the tests:
+2. Optionally run the tests:
 
    `./gradlew clean test`
 
-1. Copy the plugin jar to your plugins folder:
+3. Copy the plugin jar to your plugins folder:
 
    `cp build/libs/xnat-openid-auth-plugin-all-1.0.0-SNAPSHOT.jar /data/xnat/home/plugins`
 
