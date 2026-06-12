@@ -53,13 +53,13 @@ public class OpenIdConnectUserDetails extends XDATUser {
     public OpenIdConnectUserDetails(String providerId, Map<String, String> userInfo, OAuth2AccessToken token, OpenIdAuthPlugin plugin) {
         this.openIdUserInfo = userInfo;
         this.providerId     = providerId;
-        this.setUsername(resolvePattern(plugin.getProperty(providerId, USERNAME_PATTERN)));
         this.token  = token;
         this.plugin = plugin;
 
         this.email = getUserInfo(userInfo, EMAIL);
         this.setFirstname(getUserInfo(userInfo, GIVEN_NAME));
         this.setLastname(getUserInfo(userInfo, FAMILY_NAME));
+        this.setUsername(resolvePattern(plugin.getProperty(providerId, USERNAME_PATTERN)));
     }
 
     public String getFieldValue(String fieldName) {
@@ -67,6 +67,7 @@ public class OpenIdConnectUserDetails extends XDATUser {
         try {
             Field field = this.getClass().getDeclaredField(fieldName);
             value = (String) field.get(this);
+            System.err.println("Value of field '" + fieldName + "' is: " + value);
         } catch (Exception e) {
             if (openIdUserInfo != null) {
                 value = openIdUserInfo.get(fieldName);
