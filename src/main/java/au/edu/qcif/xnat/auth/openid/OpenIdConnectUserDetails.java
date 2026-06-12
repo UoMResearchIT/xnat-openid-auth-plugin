@@ -67,7 +67,6 @@ public class OpenIdConnectUserDetails extends XDATUser {
         try {
             Field field = this.getClass().getDeclaredField(fieldName);
             value = (String) field.get(this);
-            System.err.println("Value of field '" + fieldName + "' is: " + value);
         } catch (Exception e) {
             if (openIdUserInfo != null) {
                 value = openIdUserInfo.get(fieldName);
